@@ -14,14 +14,12 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container mt-5">
-            <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
-              <div class="card-header">Thème Morph</div>
-              <div class="card-body">
-                <h4 class="card-title">Ça fonctionne !</h4>
-                <p class="card-text">Si cette carte est bleue/arrondie style "Morph", c'est gagné.</p>
-              </div>
-            </div>
-        </div>
+        {% include '_header.html.twig' %}
+
+        <main>
+            {% block body %}{% endblock %}
+        </main>
+
+        {% include '_footer.html.twig' %}
     </body>
 </html>
