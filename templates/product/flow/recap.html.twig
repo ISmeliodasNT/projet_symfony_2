@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container mt-4">
+    {# (Même barre de progression ici si tu veux) #}
+    
+    <div class="alert alert-info">
+        Vérifiez les informations avant de valider la création du produit.
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header">Récapitulatif</div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Type</dt>
+                <dd class="col-sm-9">{{ product.type }}</dd>
+
+                <dt class="col-sm-3">Nom</dt>
+                <dd class="col-sm-9">{{ product.name }}</dd>
+
+                <dt class="col-sm-3">Marque</dt>
+                <dd class="col-sm-9">{{ product.marque }}</dd>
+
+                <dt class="col-sm-3">Stock</dt>
+                <dd class="col-sm-9">{{ product.stock }}</dd>
+
+                <dt class="col-sm-3">Prix</dt>
+                <dd class="col-sm-9">{{ product.price }} €</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between">
+        <a href="{{ path('product_flow', {step: 4}) }}" class="btn btn-secondary">
+            Modifier le prix
+        </a>
+
+        <form method="post">
+            <button type="submit" class="btn btn-success btn-lg">
+                Valider et Créer le produit
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

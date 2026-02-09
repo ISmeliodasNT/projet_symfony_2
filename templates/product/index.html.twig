@@ -3,37 +3,64 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <h1>Index des boissons</h1>
+
+    {# --- DÉBUT DE L'AJOUT --- #}
+    <div class="d-flex justify-content-end mb-3">
+        {% if app.request.query.get('sort') == 'price_desc' %}
+            {# Si le tri est actif, on affiche un bouton "Annuler" qui renvoie vers la page normale #}
+            <a href="{{ path('app_product_index') }}" class="btn btn-secondary">
+                <i class="fas fa-times"></i> Désactiver le tri par prix
+            </a>
+        {% else %}
+            {# Sinon, on affiche le bouton pour activer le tri #}
+            <a href="{{ path('app_product_index', {'sort': 'price_desc'}) }}" class="btn btn-info">
+                <i class="fas fa-sort-amount-down"></i> Trier par prix décroissant
+            </a>
+        {% endif %}
+    </div>
+    {# --- FIN DE L'AJOUT --- #}
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Name</th>
+                <th>Type de boisson</th>
+                <th>Nom</th>
+                <th>Marque</th>
                 <th>Description</th>
-                <th>Price</th>
-                <th>actions</th>
+                <th>Prix</th>
+                <th>Stock</th>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <th>Actions</th>
+                {% endif %}
             </tr>
         </thead>
         <tbody>
         {% for product in products %}
             <tr>
                 <td>{{ product.id }}</td>
+                <td>{{ product.type }}</td>
                 <td>{{ product.name }}</td>
+                <td>{{ product.marque }}</td>
                 <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'id': product.id}) }}">show</a>
-                    <a href="{{ path('app_product_edit', {'id': product.id}) }}">edit</a>
-                </td>
+                <td>{{ product.price }} €</td>
+                <td>{{ product.stock }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <a href="{{ path('app_product_show', {'id': product.id}) }}">Afficher</a>
+                        <a href="{{ path('product_flow_edit', {'id': product.id}) }}">Modifier</a>
+                    </td>
+                {% endif %}
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="8">Aucune boisson enregistrée</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_product_new') }}">Create new</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('product_flow_start') }}">Créer une nouvelle boisson</a>
+    {% endif %}
 {% endblock %}

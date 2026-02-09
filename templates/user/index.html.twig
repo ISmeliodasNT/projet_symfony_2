@@ -3,7 +3,7 @@
 {% block title %}User index{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <h1>Index des utilisateurs</h1>
 
     <table class="table">
         <thead>
@@ -11,9 +11,9 @@
                 <th>Id</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Firstname</th>
-                <th>Lastname</th>
-                <th>actions</th>
+                <th>Prenom</th>
+                <th>Nom</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -25,17 +25,17 @@
                 <td>{{ user.firstname }}</td>
                 <td>{{ user.lastname }}</td>
                 <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                    <a href="{{ path('app_user_show', {'id': user.id}) }}">Afficher</a>
+                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">Modifier</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="7">Aucun utilisateur enregistré</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+    <a href="{{ path('app_user_new') }}">Créer un nouvel utilisateur</a>
 {% endblock %}

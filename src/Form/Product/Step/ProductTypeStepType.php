@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Form\Product\Step;
+
+use App\Entity\Product;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+
+class ProductTypeStepType extends AbstractType
+{
+    public function buildForm(FormBuilderInterface $builder, array $options): void
+    {
+        $builder->add('type', ChoiceType::class, [
+            'choices' => [
+                'Plate' => 'plate',
+                'Gazeuse' => 'gazeuse',
+                'Alcoolisée' => 'alcoolisee',
+            ],
+            'label' => 'Type de boisson',
+            'expanded' => true,
+        ]);
+    }
+
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Product::class,
+            'validation_groups' => ['step_1'], // ACTIVE LA VALIDATION ETAPE 1
+        ]);
+    }
+}

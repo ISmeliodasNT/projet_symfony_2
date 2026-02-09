@@ -10,12 +10,18 @@
 
             <div class="collapse navbar-collapse" id="navbarColor01">
                 <ul class="navbar-nav me-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_register') }}" class="navbar-brand">S'inscrire</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_login') }}" class="navbar-brand">Se connecter</a>
-                    </li>
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_logout') }}" class="navbar-brand">Se déconnecter</a>
+                        </li>
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_register') }}" class="navbar-brand">S'inscrire</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_login') }}" class="navbar-brand">Se connecter</a>
+                        </li>
+                    {% endif %}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_user_index') }}" class="navbar-brand">Utilisateurs</a>
@@ -24,11 +30,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_product_list') }}" class="navbar-brand">Liste des produits</a>
                     </li>
-                    
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_product_index') }}" class="navbar-brand">Produits</a>
-                        </li>
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_product_index') }}" class="navbar-brand">Produits</a>
+                    </li>
                 </ul>
             </div>
 
