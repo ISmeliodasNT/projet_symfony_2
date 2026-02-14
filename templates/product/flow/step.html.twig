@@ -4,12 +4,10 @@
 
 {% block body %}
 <div class="container mt-4">
-    {# BARRE DE PROGRESSION #}
     <div class="progress mb-4" style="height: 30px;">
         {% for step_num, step_info in steps %}
             {% set percentage = (step_num / steps|length) * 100 %}
             {% set class = step_num <= current_step ? 'bg-primary' : 'bg-light text-dark' %}
-            
             <div class="progress-bar {{ class }} border-end" role="progressbar" style="width: 20%">
                 {{ step_num }}. {{ step_info.title }}
             </div>
@@ -23,17 +21,13 @@
         <div class="card-body">
             {{ form_start(form) }}
                 {{ form_widget(form) }}
-
                 <div class="d-flex justify-content-between mt-4">
                     
                     {% if current_step > 1 %}
-                        {# Cas normal : Etape 2, 3, 4... on affiche "Précédent" #}
                         <a href="{{ path('product_flow', {step: current_step - 1}) }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Précédent
                         </a>
                     {% else %}
-                        {# Cas spécial : Etape 1 uniquement #}
-                        {# On affiche un bouton "Annuler" ou "Retour liste" #}
                         <a href="{{ path('app_product_index') }}" class="btn btn-outline-danger">
                             <i class="fas fa-times"></i> Annuler
                         </a>

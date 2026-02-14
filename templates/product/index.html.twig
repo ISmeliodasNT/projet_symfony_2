@@ -5,21 +5,17 @@
 {% block body %}
     <h1>Index des boissons</h1>
 
-    {# --- DÉBUT DE L'AJOUT --- #}
     <div class="d-flex justify-content-end mb-3">
         {% if app.request.query.get('sort') == 'price_desc' %}
-            {# Si le tri est actif, on affiche un bouton "Annuler" qui renvoie vers la page normale #}
             <a href="{{ path('app_product_index') }}" class="btn btn-secondary">
                 <i class="fas fa-times"></i> Désactiver le tri par prix
             </a>
         {% else %}
-            {# Sinon, on affiche le bouton pour activer le tri #}
             <a href="{{ path('app_product_index', {'sort': 'price_desc'}) }}" class="btn btn-info">
                 <i class="fas fa-sort-amount-down"></i> Trier par prix décroissant
             </a>
         {% endif %}
     </div>
-    {# --- FIN DE L'AJOUT --- #}
 
     <table class="table">
         <thead>

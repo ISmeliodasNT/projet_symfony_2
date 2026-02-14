@@ -17,15 +17,11 @@ final class ProductController extends AbstractController
     #[Route(name: 'app_product_index', methods: ['GET'])]
     public function index(ProductRepository $productRepository, Request $request): Response
     {
-        // On regarde si l'URL contient ?sort=price_desc
         $sortByPrice = $request->query->get('sort') === 'price_desc';
 
         if ($sortByPrice) {
-            // Si oui, on demande à Doctrine de trier par 'price' en descendant (DESC)
-            // ATTENTION : Vérifie si ton champ s'appelle 'price' ou 'unitPrice' dans ton Entité Product
             $products = $productRepository->findBy([], ['price' => 'DESC']); 
         } else {
-            // Sinon, on prend la liste par défaut
             $products = $productRepository->findAll();
         }
 
