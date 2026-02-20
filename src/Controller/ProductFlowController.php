@@ -36,12 +36,26 @@ class ProductFlowController extends AbstractController
 
         if ($step === 5) {
             if ($request->isMethod('POST')) {
-                $em->persist($product);
-                $em->flush();
+                if ($product->getId()) {
+                    $managedProduct = $em->getRepository(Product::class)->find($product->getId());
+                    
+                    $managedProduct->setType($product->getType());
+                    $managedProduct->setName($product->getName());
+                    $managedProduct->setDescription($product->getDescription());
+                    $managedProduct->setMarque($product->getMarque());
+                    $managedProduct->setStock($product->getStock());
+                    $managedProduct->setPrice($product->getPrice());
+                    
+                    $em->flush();
+                    $this->addFlash('success', 'La boisson a été modifiée avec succès !');
+                } else {
+                    $em->persist($product);
+                    $em->flush();
+                    $this->addFlash('success', 'La nouvelle boisson a été créée avec succès !');
+                }
                 
                 $session->remove('product_flow_data');
                 
-                $this->addFlash('success', 'Produit créé avec succès !');
                 return $this->redirectToRoute('app_product_index'); 
             }
 

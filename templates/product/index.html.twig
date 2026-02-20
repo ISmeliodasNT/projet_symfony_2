@@ -1,11 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}Index des boissons{% endblock %}
 
 {% block body %}
     <h1>Index des boissons</h1>
 
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex justify-content-end mb-3 gap-2">
+        <a href="{{ path('app_product_export_csv') }}" class="btn btn-success">
+            <i class="fas fa-file-csv"></i> Exporter en CSV
+        </a>
+
         {% if app.request.query.get('sort') == 'price_desc' %}
             <a href="{{ path('app_product_index') }}" class="btn btn-secondary">
                 <i class="fas fa-times"></i> Désactiver le tri par prix

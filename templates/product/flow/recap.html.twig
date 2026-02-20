@@ -4,7 +4,11 @@
 <div class="container mt-4">
     
     <div class="alert alert-info">
-        Vérifiez les informations avant de valider la création du produit.
+        {% if product.id %}
+            <i class="fas fa-edit"></i> Vérifiez les informations avant de valider la modifiaction du produit.
+        {% else %}
+            <i class="fas fa-check"></i> Vérifiez les informations avant de valider la création du produit.
+        {% endif %}
     </div>
 
     <div class="card mb-3">
@@ -35,8 +39,12 @@
         </a>
 
         <form method="post">
-            <button type="submit" class="btn btn-success btn-lg">
-                Valider et Créer le produit
+            <button type="submit" class="btn btn-success">
+                {% if product.id %}
+                    <i class="fas fa-edit"></i> Valider et modifier la boisson
+                {% else %}
+                    <i class="fas fa-check"></i> Valider et créer la boisson
+                {% endif %}
             </button>
         </form>
     </div>

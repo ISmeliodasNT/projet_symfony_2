@@ -27,9 +27,11 @@
                             <a class="nav-link" href="{{ path('app_user_index') }}" class="navbar-brand">Utilisateurs</a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_product_list') }}" class="navbar-brand">Liste des produits</a>
-                    </li>
+                    {% if is_granted('CLIENT_MANAGE') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_client_index') }}">Clients</a>
+                        </li>
+                    {% endif %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_product_index') }}" class="navbar-brand">Produits</a>
                     </li>

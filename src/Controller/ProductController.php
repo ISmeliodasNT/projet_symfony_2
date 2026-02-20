@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Service\CsvExportService;
 
 #[Route('/product')]
 final class ProductController extends AbstractController
@@ -87,13 +88,17 @@ final class ProductController extends AbstractController
         return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/list', name: 'app_product_list', methods: ['GET'])]
-    public function list(ProductRepository $productRepository): Response
+    #[Route('/export/csv', name: 'app_product_export_csv', methods: ['GET'])]
+    public function exportCsv(ProductRepository $productRepository, CsvExportService $csvExportService): Response
     {
-        $this->denyAccessUnlessGranted('PRODUCT_LIST');
+        $products = $productRepository->findAll();
 
-        return $this->render('product/list.html.twig', [
-            'products' => $productRepository->findAll(),
-        ]);
+        $csvContent = $csvExportService->exportProductsToCsv($products);
+
+        $response = new Response($csvContent);
+        $response->headers->set('Content-Type', 'text/csv; charset=utf-8');
+        $response->headers->set('Content-Disposition', 'attachment; filename="produits_export.csv"');
+
+        return $response;
     }
 }
